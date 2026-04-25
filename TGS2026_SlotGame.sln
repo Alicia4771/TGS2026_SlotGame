@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TGS2026_slot", "TGS2026_slot", "{305AE0EE-D56C-6353-960C-57F3CBB471F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "TGS2026_slot\Assembly-CSharp.csproj", "{2B930928-3DB5-9D91-11B1-06A2AB4C108D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B930928-3DB5-9D91-11B1-06A2AB4C108D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B930928-3DB5-9D91-11B1-06A2AB4C108D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B930928-3DB5-9D91-11B1-06A2AB4C108D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B930928-3DB5-9D91-11B1-06A2AB4C108D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2B930928-3DB5-9D91-11B1-06A2AB4C108D} = {305AE0EE-D56C-6353-960C-57F3CBB471F8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {60E07E93-3B3D-4703-90E5-6F5EA2826D21}
+	EndGlobalSection
+EndGlobal

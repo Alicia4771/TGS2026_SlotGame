@@ -613,6 +613,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1472499539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1472499541}
+  - component: {fileID: 1472499540}
+  m_Layer: 0
+  m_Name: SlotManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1472499540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472499539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91ccd2a3f6a74e73b1cde384205b45a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlotScript
+  image_slot_7: {fileID: -8050131513338824759, guid: 473fc45570e284901b88828c49b6636e, type: 3}
+  image_slot_cherry: {fileID: -9143181989566708569, guid: 7e5dca837363c4ad382976df5a4766ac, type: 3}
+  image_slot_bell: {fileID: -372142565500695793, guid: bd5aa45a0b80c4e13b597df389952d50, type: 3}
+  image_slot_bar: {fileID: 8834629199430589591, guid: 70959df12b7fb45e1a3420a245c3249a, type: 3}
+  image_slot_replay: {fileID: 5035015398412779839, guid: ae39c0b0a1fb64939943ecf52e5dd447, type: 3}
+  image_slot_suika: {fileID: -6875981820336541016, guid: ad269ab85d2d240c7abdfebcba83614c, type: 3}
+  slot_left: {fileID: 958431644}
+  slot_center: {fileID: 505075676}
+  slot_right: {fileID: 506379393}
+--- !u!4 &1472499541
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472499539}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.18136, y: -0.11879, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -622,3 +675,4 @@ SceneRoots:
   - {fileID: 958431645}
   - {fileID: 505075677}
   - {fileID: 506379394}
+  - {fileID: 1472499541}
