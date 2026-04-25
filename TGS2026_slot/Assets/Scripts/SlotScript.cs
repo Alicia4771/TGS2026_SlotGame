@@ -29,6 +29,13 @@ public class SlotScript : MonoBehaviour
     private float frameWidth = 3.6f;
     private float frameHeight = 2.7f;
 
+    // スロットプレイ中かどうかのフラグ
+    private bool isSlotPlaying = false;
+    // スロットの各列が回転中がどうかのフラグ
+    private bool isLeftSlotSpinning = false;
+    private bool isCenterSlotSpinning = false;
+    private bool isRightSlotSpinning = false;
+
     void Start()
     {
         // 必要なスロットの枠と絵柄の画像が設定されているかの確認
@@ -82,7 +89,7 @@ public class SlotScript : MonoBehaviour
         }
 
         // 設定されているスロットの枠が4:3になっているかの確認
-        if (Mathf.Abs((frameWidth / frameHeight) - (4.0f / 3.0f)) > 0)
+        if (Mathf.Abs((frameWidth / frameHeight) - (4.0f / 3.0f)) > 0.01f)
         {
             Debug.LogError("スロットの枠のサイズが4:3になっていません。実行を終了します。");
 #if UNITY_EDITOR
@@ -104,33 +111,85 @@ public class SlotScript : MonoBehaviour
         slot_right_up.transform.localScale = new Vector3(scaleX, scaleY, 1);
         slot_right_center.transform.localScale = new Vector3(scaleX, scaleY, 1);
         slot_right_down.transform.localScale = new Vector3(scaleX, scaleY, 1);
+
+        // スロットの絵柄を初期化
+        slot_left_up.sprite = null;
+        slot_left_center.sprite = null;
+        slot_left_down.sprite = null;
+        slot_center_up.sprite = null;
+        slot_center_center.sprite = null;
+        slot_center_down.sprite = null;
+        slot_right_up.sprite = null;
+        slot_right_center.sprite = null;
+        slot_right_down.sprite = null;
+
+        // スロットプレイ中のフラグを初期化
+        isSlotPlaying = false;
+
+        // スロットの各列が回転中かどうかのフラグを初期化
+        isLeftSlotSpinning = false;
+        isCenterSlotSpinning = false;
+        isRightSlotSpinning = false;
     }
 
     void Update()
     {
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
-            StopSlotLeft();
+            StopSlot(0);
         } else if (Keyboard.current.digit2Key.wasPressedThisFrame)
         {
-            StopSlotCenter();
+            StopSlot(1);
         } else if (Keyboard.current.digit3Key.wasPressedThisFrame)
         {
-            StopSlotRight();
+            StopSlot(2);
+        } else  if (Keyboard.current.enterKey.wasPressedThisFrame)
+        {
+            SlotPlay();
+            Debug.Log("Enterキーが押されました");
         }
     }
 
-    private void StopSlotLeft()
+
+    private void StopSlot(int slotNumber)
     {
-        slot_left_center.sprite = image_slot_7;
-    }
-    private void StopSlotCenter()
-    {
-        slot_center_center.sprite = image_slot_7;
+        switch (slotNumber)
+        {
+            case 0:
+                slot_left_center.sprite = image_slot_7;
+                isLeftSlotSpinning = false;
+                break;
+            case 1:
+                slot_center_center.sprite = image_slot_7;
+                isCenterSlotSpinning = false;
+                break;
+            case 2:
+                slot_right_center.sprite = image_slot_7;
+                isRightSlotSpinning = false;
+                break;
+            default:
+                Debug.LogError("無効なスロット番号: " + slotNumber);
+                break;
+        }
     }
 
-    private void StopSlotRight()
+    private void SlotPlay()
     {
-        slot_right_center.sprite = image_slot_7;
+        slot_left_up.sprite = null;
+        slot_left_center.sprite = null;
+        slot_left_down.sprite = null;
+        slot_center_up.sprite = null;
+        slot_center_center.sprite = null;
+        slot_center_down.sprite = null;
+        slot_right_up.sprite = null;
+        slot_right_center.sprite = null;
+        slot_right_down.sprite = null;
+
+        // スロットプレイ中のフラグを設定
+        isSlotPlaying = true;
+        // スロットの各列が回転中のフラグを設定
+        isLeftSlotSpinning = true;
+        isCenterSlotSpinning = true;
+        isRightSlotSpinning = true;
     }
 }
