@@ -915,15 +915,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a91ccd2a3f6a74e73b1cde384205b45a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlotScript
-  image_slot_7: {fileID: -8050131513338824759, guid: 12dbb37dc30454c27bbd72247bc82546, type: 3}
-  image_slot_cherry: {fileID: -9143181989566708569, guid: 3815ff2bae3fe49479b7e06b3c157ed9, type: 3}
-  image_slot_bell: {fileID: -372142565500695793, guid: c57804b786c55479bb6c2582aa837a1a, type: 3}
-  image_slot_bar: {fileID: 8834629199430589591, guid: fb8f513282128427db586060e6a0601b, type: 3}
-  image_slot_replay: {fileID: 5035015398412779839, guid: 37bbbbc7a732d4eeea0e9b2bdac9eaba, type: 3}
-  image_slot_suika: {fileID: -6875981820336541016, guid: a7516bdda142e4a67b61f39944817624, type: 3}
-  slot_left: {fileID: 958431644}
-  slot_center: {fileID: 505075676}
-  slot_right: {fileID: 506379393}
+  image_slot_7: {fileID: 21300000, guid: 12dbb37dc30454c27bbd72247bc82546, type: 3}
+  image_slot_cherry: {fileID: 21300000, guid: fb8f513282128427db586060e6a0601b, type: 3}
+  image_slot_bell: {fileID: 21300000, guid: c57804b786c55479bb6c2582aa837a1a, type: 3}
+  image_slot_bar: {fileID: 21300000, guid: 3815ff2bae3fe49479b7e06b3c157ed9, type: 3}
+  image_slot_replay: {fileID: 21300000, guid: 37bbbbc7a732d4eeea0e9b2bdac9eaba, type: 3}
+  image_slot_suika: {fileID: 21300000, guid: a7516bdda142e4a67b61f39944817624, type: 3}
+  slot_left_up: {fileID: 38111555}
+  slot_left_center: {fileID: 958431644}
+  slot_left_down: {fileID: 2048771830}
+  slot_center_up: {fileID: 957629344}
+  slot_center_center: {fileID: 505075676}
+  slot_center_down: {fileID: 1711080314}
+  slot_right_up: {fileID: 2116079621}
+  slot_right_center: {fileID: 506379393}
+  slot_right_down: {fileID: 831412369}
 --- !u!4 &1472499541
 Transform:
   m_ObjectHideFlags: 0
