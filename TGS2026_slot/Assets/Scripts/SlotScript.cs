@@ -25,7 +25,7 @@ public class SlotScript : MonoBehaviour
     [SerializeField] private SpriteRenderer slot_right_center;
     [SerializeField] private SpriteRenderer slot_right_down;
 
-    // スロットの枠のサイズ
+    // 表示されるスロットの絵柄のサイズ
     private float frameWidth = 3.6f;
     private float frameHeight = 2.7f;
 
@@ -71,15 +71,19 @@ public class SlotScript : MonoBehaviour
         }
 
         // スロットの枠のサイズを設定
-        slot_left_up.transform.localScale = new Vector3(frameWidth, frameHeight, 1);
-        slot_left_center.transform.localScale = new Vector3(frameWidth, frameHeight, 1);
-        slot_left_down.transform.localScale = new Vector3(frameWidth, frameHeight, 1);
-        slot_center_up.transform.localScale = new Vector3(frameWidth, frameHeight, 1);
-        slot_center_center.transform.localScale = new Vector3(frameWidth, frameHeight, 1);
-        slot_center_down.transform.localScale = new Vector3(frameWidth, frameHeight, 1);
-        slot_right_up.transform.localScale = new Vector3(frameWidth, frameHeight, 1);
-        slot_right_center.transform.localScale = new Vector3(frameWidth, frameHeight, 1);
-        slot_right_down.transform.localScale = new Vector3(frameWidth, frameHeight, 1);
+        float imageWidth = image_slot_7.bounds.size.x;
+        float imageHeight = image_slot_7.bounds.size.y;
+        float scaleX = frameWidth / imageWidth;
+        float scaleY = frameHeight / imageHeight;
+        slot_left_up.transform.localScale = new Vector3(scaleX, scaleY, 1);
+        slot_left_center.transform.localScale = new Vector3(scaleX, scaleY, 1);
+        slot_left_down.transform.localScale = new Vector3(scaleX, scaleY, 1);
+        slot_center_up.transform.localScale = new Vector3(scaleX, scaleY, 1);
+        slot_center_center.transform.localScale = new Vector3(scaleX, scaleY, 1);
+        slot_center_down.transform.localScale = new Vector3(scaleX, scaleY, 1);
+        slot_right_up.transform.localScale = new Vector3(scaleX, scaleY, 1);
+        slot_right_center.transform.localScale = new Vector3(scaleX, scaleY, 1);
+        slot_right_down.transform.localScale = new Vector3(scaleX, scaleY, 1);
     }
 
     void Update()
@@ -98,16 +102,15 @@ public class SlotScript : MonoBehaviour
 
     private void StopSlotLeft()
     {
-        // slot_left.sprite = image_slot_7;
+        slot_left_center.sprite = image_slot_7;
     }
-
     private void StopSlotCenter()
     {
-        // code;
+        slot_center_center.sprite = image_slot_7;
     }
 
     private void StopSlotRight()
     {
-        // code;
+        slot_right_center.sprite = image_slot_7;
     }
 }
