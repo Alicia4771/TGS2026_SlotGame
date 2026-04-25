@@ -153,23 +153,38 @@ public class SlotScript : MonoBehaviour
 
     private void StopSlot(int slotNumber)
     {
-        switch (slotNumber)
+        if (isSlotPlaying)
         {
-            case 0:
-                slot_left_center.sprite = image_slot_7;
-                isLeftSlotSpinning = false;
-                break;
-            case 1:
-                slot_center_center.sprite = image_slot_7;
-                isCenterSlotSpinning = false;
-                break;
-            case 2:
-                slot_right_center.sprite = image_slot_7;
-                isRightSlotSpinning = false;
-                break;
-            default:
-                Debug.LogError("無効なスロット番号: " + slotNumber);
-                break;
+            switch (slotNumber)
+            {
+                case 0:
+                    if (isLeftSlotSpinning) {
+                        slot_left_center.sprite = image_slot_7;
+                        isLeftSlotSpinning = false;
+                    }
+                    break;
+                case 1:
+                    if (isCenterSlotSpinning) {
+                        slot_center_center.sprite = image_slot_7;
+                        isCenterSlotSpinning = false;
+                    }
+                    break;
+                case 2:
+                    if (isRightSlotSpinning) {
+                        slot_right_center.sprite = image_slot_7;
+                        isRightSlotSpinning = false;
+                    }
+                    break;
+                default:
+                    Debug.LogError("無効なスロット番号: " + slotNumber);
+                    break;
+            }
+
+            if (!isLeftSlotSpinning && !isCenterSlotSpinning && !isRightSlotSpinning)
+            {
+                isSlotPlaying = false;
+                Debug.Log("スロットプレイが終了しました");
+            }
         }
     }
 
