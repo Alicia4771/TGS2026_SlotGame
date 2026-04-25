@@ -59,6 +59,28 @@ public class SlotScript : MonoBehaviour
 #endif
         }
 
+        // スロットの絵柄の画像のサイズが全て同じであるかの確認
+        float imageWidth = image_slot_7.bounds.size.x;
+        float imageHeight = image_slot_7.bounds.size.y;
+        if (Mathf.Abs(image_slot_cherry.bounds.size.x - imageWidth) > 0.01f ||
+            Mathf.Abs(image_slot_cherry.bounds.size.y - imageHeight) > 0.01f ||
+            Mathf.Abs(image_slot_bell.bounds.size.x - imageWidth) > 0.01f ||
+            Mathf.Abs(image_slot_bell.bounds.size.y - imageHeight) > 0.01f ||
+            Mathf.Abs(image_slot_bar.bounds.size.x - imageWidth) > 0.01f ||
+            Mathf.Abs(image_slot_bar.bounds.size.y - imageHeight) > 0.01f ||
+            Mathf.Abs(image_slot_replay.bounds.size.x - imageWidth) > 0.01f ||
+            Mathf.Abs(image_slot_replay.bounds.size.y - imageHeight) > 0.01f ||
+            Mathf.Abs(image_slot_suika.bounds.size.x - imageWidth) > 0.01f ||
+            Mathf.Abs(image_slot_suika.bounds.size.y - imageHeight) > 0.01f)
+        {
+            Debug.LogError("スロットの絵柄の画像のサイズが全て同じではありません。実行を終了します。");
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
+
         // 設定されているスロットの枠が4:3になっているかの確認
         if (Mathf.Abs((frameWidth / frameHeight) - (4.0f / 3.0f)) > 0.01f)
         {
@@ -71,8 +93,6 @@ public class SlotScript : MonoBehaviour
         }
 
         // スロットの枠のサイズを設定
-        float imageWidth = image_slot_7.bounds.size.x;
-        float imageHeight = image_slot_7.bounds.size.y;
         float scaleX = frameWidth / imageWidth;
         float scaleY = frameHeight / imageHeight;
         slot_left_up.transform.localScale = new Vector3(scaleX, scaleY, 1);
