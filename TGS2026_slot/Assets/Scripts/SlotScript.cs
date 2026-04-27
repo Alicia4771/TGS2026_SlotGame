@@ -3,6 +3,7 @@ using UnityEditor;
 #endif
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class SlotScript : MonoBehaviour
 {
@@ -235,6 +236,7 @@ public class SlotScript : MonoBehaviour
             {
                 slot_unhit_count++;
 
+                // 所持金の更新
                 if (slot_left_result == 4 && slot_center_result == 4 && slot_right_result == 4)
                 {
                     money += bet_money * slot_cherry_payout_multiplier;
@@ -245,6 +247,9 @@ public class SlotScript : MonoBehaviour
                 {
                     money += bet_money * slot_suika_payout_multiplier;
                 }
+
+                // 所持金が０になったらゲームオーバー
+                if (money < 0) RostMoneyGameOver();
 
                 isSlotPlaying = false;
                 Debug.Log(slot_left_result + ", " + slot_center_result + ", " + slot_right_result);
@@ -333,5 +338,10 @@ public class SlotScript : MonoBehaviour
         slot_left_result = 0;
         slot_center_result = 0;
         slot_right_result = 0;
+    }
+
+    private void RostMoneyGameOver()
+    {
+        SceneManager.LoadScene("RostMoneyGameOverScene");
     }
 }
