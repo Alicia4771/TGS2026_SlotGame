@@ -36,6 +36,7 @@ public class SlotScript : MonoBehaviour
     private bool isCenterSlotSpinning = false;
     private bool isRightSlotSpinning = false;
 
+    // ハズレが続いた回数
     private int slot_unhit_count = 0;
     [SerializeField, Tooltip("最大何回以内に惜しい盤面を出すか")] private int slot_hit_count_max = 10;
     [SerializeField] private int slot_7_weight = 1;
