@@ -8,10 +8,10 @@ public class SlotScript : MonoBehaviour
 {
     // スロットの絵柄の画像
     [SerializeField] private Sprite image_slot_7;
-    [SerializeField] private Sprite image_slot_cherry;
-    [SerializeField] private Sprite image_slot_bell;
     [SerializeField] private Sprite image_slot_bar;
     [SerializeField] private Sprite image_slot_replay;
+    [SerializeField] private Sprite image_slot_cherry;
+    [SerializeField] private Sprite image_slot_bell;
     [SerializeField] private Sprite image_slot_suika;
 
     // スロットの絵柄が表示される場所
@@ -35,6 +35,20 @@ public class SlotScript : MonoBehaviour
     private bool isLeftSlotSpinning = false;
     private bool isCenterSlotSpinning = false;
     private bool isRightSlotSpinning = false;
+
+    private int slot_hit_count = 0;
+    [SerializeField, Tooltip("最大何回以内に惜しい盤面を出すか")] private int slot_hit_count_max = 10;
+    [SerializeField] private int slot_7_weight = 1;
+    [SerializeField] private int slot_bar_weight = 1;
+    [SerializeField] private int slot_replay_weight = 3;
+    [SerializeField] private int slot_cherry_weight = 8;
+    [SerializeField] private int slot_bell_weight = 5;
+    [SerializeField] private int slot_suika_weight = 5;
+
+    // スロットの各列にどの絵柄が表示されるかを表す変数（0: 未定, 1: 7, 2: bar, 3: replay, 4: cherry, 5: bell, 6: suika）
+    private int slot_left_result = 0;
+    private int slot_center_result = 0;
+    private int slot_right_result = 0;
 
     void Start()
     {
@@ -159,19 +173,19 @@ public class SlotScript : MonoBehaviour
             {
                 case 0:
                     if (isLeftSlotSpinning) {
-                        slot_left_center.sprite = image_slot_7;
+                        slot_left_center.sprite = ReturnSlotSprite(GetSlotResult());
                         isLeftSlotSpinning = false;
                     }
                     break;
                 case 1:
                     if (isCenterSlotSpinning) {
-                        slot_center_center.sprite = image_slot_7;
+                        slot_center_center.sprite = ReturnSlotSprite(GetSlotResult());
                         isCenterSlotSpinning = false;
                     }
                     break;
                 case 2:
                     if (isRightSlotSpinning) {
-                        slot_right_center.sprite = image_slot_7;
+                        slot_right_center.sprite = ReturnSlotSprite(GetSlotResult());
                         isRightSlotSpinning = false;
                     }
                     break;
@@ -185,6 +199,54 @@ public class SlotScript : MonoBehaviour
                 isSlotPlaying = false;
                 Debug.Log("スロットプレイが終了しました");
             }
+        }
+    }
+
+    private int GetSlotResult()
+    {
+        int result_numer = 0;
+        int result_random_number = Random.Range(1, slot_7_weight + slot_bar_weight + slot_replay_weight + slot_cherry_weight + slot_bell_weight + slot_suika_weight + 1);
+        if (result_random_number <= slot_7_weight)
+        {
+            result_numer = 1;
+        } else if (result_random_number <= slot_7_weight + slot_bar_weight)
+        {
+            result_numer = 2;
+        } else if (result_random_number <= slot_7_weight + slot_bar_weight + slot_replay_weight)
+        {
+            result_numer = 3;
+        } else if (result_random_number <= slot_7_weight + slot_bar_weight + slot_replay_weight + slot_cherry_weight)
+        {
+            result_numer = 4;
+        } else if (result_random_number <= slot_7_weight + slot_bar_weight + slot_replay_weight + slot_cherry_weight + slot_bell_weight)
+        {
+            result_numer = 5;
+        } else if (result_random_number <= slot_7_weight + slot_bar_weight + slot_replay_weight + slot_cherry_weight + slot_bell_weight + slot_suika_weight)
+        {
+            result_numer = 6;
+        }
+        return result_numer;
+    }
+
+    private Sprite ReturnSlotSprite(int slotResultNum)
+    {
+        switch (slotResultNum)
+        {
+            case 1:
+                return image_slot_7;
+            case 2:
+                return image_slot_bar;
+            case 3:
+                return image_slot_replay;
+            case 4:
+                return image_slot_cherry;
+            case 5:
+                return image_slot_bell;
+            case 6:
+                return image_slot_suika;
+            default:
+                Debug.LogError("無効なスロット結果番号: " + slotResultNum);
+                return null;
         }
     }
 
@@ -206,5 +268,9 @@ public class SlotScript : MonoBehaviour
         isLeftSlotSpinning = true;
         isCenterSlotSpinning = true;
         isRightSlotSpinning = true;
+        // スロットの各列の結果を初期化
+        slot_left_result = 0;
+        slot_center_result = 0;
+        slot_right_result = 0;
     }
 }
