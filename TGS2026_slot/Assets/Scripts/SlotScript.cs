@@ -36,7 +36,7 @@ public class SlotScript : MonoBehaviour
     private bool isCenterSlotSpinning = false;
     private bool isRightSlotSpinning = false;
 
-    private int slot_hit_count = 0;
+    private int slot_unhit_count = 0;
     [SerializeField, Tooltip("最大何回以内に惜しい盤面を出すか")] private int slot_hit_count_max = 10;
     [SerializeField] private int slot_7_weight = 1;
     [SerializeField] private int slot_bar_weight = 1;
@@ -160,7 +160,6 @@ public class SlotScript : MonoBehaviour
         } else  if (Keyboard.current.enterKey.wasPressedThisFrame)
         {
             SlotPlay();
-            Debug.Log("Enterキーが押されました");
         }
     }
 
@@ -173,19 +172,40 @@ public class SlotScript : MonoBehaviour
             {
                 case 0:
                     if (isLeftSlotSpinning) {
-                        slot_left_center.sprite = ReturnSlotSprite(GetSlotResult());
+                        if (slot_unhit_count >= slot_hit_count_max)
+                        {
+                            slot_left_result = 1;
+                        } else
+                        {
+                            slot_right_result = GetSlotResult();
+                        }
+                        slot_left_center.sprite = ReturnSlotSprite(slot_left_result);
                         isLeftSlotSpinning = false;
                     }
                     break;
                 case 1:
                     if (isCenterSlotSpinning) {
-                        slot_center_center.sprite = ReturnSlotSprite(GetSlotResult());
+                        if (slot_unhit_count >= slot_hit_count_max)
+                        {
+                            slot_left_result = 1;
+                        } else
+                        {
+                            slot_right_result = GetSlotResult();
+                        }
+                        slot_center_center.sprite = ReturnSlotSprite(slot_center_result);
                         isCenterSlotSpinning = false;
                     }
                     break;
                 case 2:
-                    if (isRightSlotSpinning) {
-                        slot_right_center.sprite = ReturnSlotSprite(GetSlotResult());
+                    if (isRightSlotSpinning) { 
+                        if (slot_unhit_count >= slot_hit_count_max)
+                        {
+                            slot_left_result = 1;
+                        } else
+                        {
+                            slot_right_result = GetSlotResult();
+                        }
+                        slot_right_center.sprite = ReturnSlotSprite(slot_right_result);
                         isRightSlotSpinning = false;
                     }
                     break;
@@ -196,8 +216,10 @@ public class SlotScript : MonoBehaviour
 
             if (!isLeftSlotSpinning && !isCenterSlotSpinning && !isRightSlotSpinning)
             {
+                slot_unhit_count++;
+                
                 isSlotPlaying = false;
-                Debug.Log("スロットプレイが終了しました");
+                Debug.Log(slot_left_result + ", " + slot_center_result + ", " + slot_right_result);
             }
         }
     }
@@ -206,6 +228,7 @@ public class SlotScript : MonoBehaviour
     {
         int result_numer = 0;
         int result_random_number = Random.Range(1, slot_7_weight + slot_bar_weight + slot_replay_weight + slot_cherry_weight + slot_bell_weight + slot_suika_weight + 1);
+        Debug.Log("result_random_number: " + result_random_number);
         if (result_random_number <= slot_7_weight)
         {
             result_numer = 1;
@@ -225,6 +248,7 @@ public class SlotScript : MonoBehaviour
         {
             result_numer = 6;
         }
+        Debug.Log("result_numer: " + result_numer);
         return result_numer;
     }
 
@@ -252,6 +276,12 @@ public class SlotScript : MonoBehaviour
 
     private void SlotPlay()
     {
+        if (isSlotPlaying)
+        {
+            // すでにスロットプレイ中の場合は何もしない
+            return;
+        }
+
         slot_left_up.sprite = null;
         slot_left_center.sprite = null;
         slot_left_down.sprite = null;
