@@ -46,10 +46,23 @@ public class SlotScript : MonoBehaviour
     [SerializeField] private int slot_bell_weight = 5;
     [SerializeField] private int slot_suika_weight = 5;
 
+    // 各絵柄が揃った時の払い戻しの倍率
+    [SerializeField] private int slot_cherry_payout_multiplier = 2;
+    [SerializeField] private int slot_bell_payout_multiplier = 3;
+    [SerializeField] private int slot_suika_payout_multiplier = 3;
+
     // スロットの各列にどの絵柄が表示されるかを表す変数（0: 未定, 1: 7, 2: bar, 3: replay, 4: cherry, 5: bell, 6: suika）
     private int slot_left_result = 0;
     private int slot_center_result = 0;
     private int slot_right_result = 0;
+
+    // 最初の所持金
+    [SerializeField] private int start_money = 1000;
+    // 今の所持金
+    private int money;
+    // スロットを１回回すのに必要な金額
+    [SerializeField] private int bet_money = 50;
+
 
     void Start()
     {
@@ -145,6 +158,8 @@ public class SlotScript : MonoBehaviour
         isLeftSlotSpinning = false;
         isCenterSlotSpinning = false;
         isRightSlotSpinning = false;
+        // 所持金の初期化
+        money = start_money;
     }
 
     void Update()
@@ -178,7 +193,7 @@ public class SlotScript : MonoBehaviour
                             slot_left_result = 1;
                         } else
                         {
-                            slot_right_result = GetSlotResult();
+                            slot_left_result = GetSlotResult();
                         }
                         slot_left_center.sprite = ReturnSlotSprite(slot_left_result);
                         isLeftSlotSpinning = false;
@@ -188,10 +203,10 @@ public class SlotScript : MonoBehaviour
                     if (isCenterSlotSpinning) {
                         if (slot_unhit_count >= slot_hit_count_max)
                         {
-                            slot_left_result = 1;
+                            slot_center_result = 1;
                         } else
                         {
-                            slot_right_result = GetSlotResult();
+                            slot_center_result = GetSlotResult();
                         }
                         slot_center_center.sprite = ReturnSlotSprite(slot_center_result);
                         isCenterSlotSpinning = false;
@@ -201,7 +216,7 @@ public class SlotScript : MonoBehaviour
                     if (isRightSlotSpinning) { 
                         if (slot_unhit_count >= slot_hit_count_max)
                         {
-                            slot_left_result = 1;
+                            slot_right_result = 1;
                         } else
                         {
                             slot_right_result = GetSlotResult();
@@ -215,10 +230,22 @@ public class SlotScript : MonoBehaviour
                     break;
             }
 
+            // すべてのスロットが止まった時
             if (!isLeftSlotSpinning && !isCenterSlotSpinning && !isRightSlotSpinning)
             {
                 slot_unhit_count++;
-                
+
+                if (slot_left_result == 4 && slot_center_result == 4 && slot_right_result == 4)
+                {
+                    money += bet_money * slot_cherry_payout_multiplier;
+                } else if (slot_left_result == 5 && slot_center_result == 5 && slot_right_result == 5)
+                {
+                    money += bet_money * slot_bell_payout_multiplier;
+                } else if (slot_left_result == 6 && slot_center_result == 6 && slot_right_result == 6)
+                {
+                    money += bet_money * slot_suika_payout_multiplier;
+                }
+
                 isSlotPlaying = false;
                 Debug.Log(slot_left_result + ", " + slot_center_result + ", " + slot_right_result);
             }
@@ -282,6 +309,9 @@ public class SlotScript : MonoBehaviour
             // すでにスロットプレイ中の場合は何もしない
             return;
         }
+
+        // 所持金からベット金額を引く
+        money -= bet_money;
 
         slot_left_up.sprite = null;
         slot_left_center.sprite = null;
